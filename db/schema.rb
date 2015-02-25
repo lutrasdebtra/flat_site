@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150225232057) do
+ActiveRecord::Schema.define(version: 20150225233342) do
+
+  create_table "payments", force: :cascade do |t|
+    t.date     "date"
+    t.string   "memo"
+    t.decimal  "paysb"
+    t.decimal  "payks"
+    t.decimal  "paysc"
+    t.decimal  "paykn"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

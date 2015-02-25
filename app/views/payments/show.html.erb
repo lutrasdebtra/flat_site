@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @payment.date %>
+</p>
+
+<p>
+  <strong>Memo:</strong>
+  <%= @payment.memo %>
+</p>
+
+<p>
+  <strong>Paysb:</strong>
+  <%= @payment.paysb %>
+</p>
+
+<p>
+  <strong>Payks:</strong>
+  <%= @payment.payks %>
+</p>
+
+<p>
+  <strong>Paysc:</strong>
+  <%= @payment.paysc %>
+</p>
+
+<p>
+  <strong>Paykn:</strong>
+  <%= @payment.paykn %>
+</p>
+
+<%= link_to 'Edit', edit_payment_path(@payment) %> |
+<%= link_to 'Back', payments_path %>
