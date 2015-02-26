@@ -1,19 +1,6 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-
-User.delete_all
-Payment.delete_all
-
-User.create! :username => 'Stuart', :email => 'stuy.bradley@gmail.com', :password => 'topsecret', :password_confirmation => 'topsecret'
-User.create! :username => 'Simon', :email => 'simon.corkindale@rapide.co.nz', :password => 'topsecret', :password_confirmation => 'topsecret'
-User.create! :username => 'Katy', :email => 'katy.seddon@hotmail.com', :password => 'topsecret', :password_confirmation => 'topsecret'
-User.create! :username => 'Kieran', :email => 'kmaster101@gmail.com', :password => 'topsecret', :password_confirmation => 'topsecret'
-
+# Seed Test
+# Stuart Bradley
+# 26/02/2015
 
 require 'csv'
 
@@ -21,9 +8,7 @@ require 'csv'
 user = ''
 pay_hash = {"Stuart" => -1, "Katy" => -1, "Simon" => -1, "Kieran" => -1}
 
-i = -1 
-CSV.foreach('db/seed_data.csv', {}) do |row|
-  i += 1
+CSV.foreach("seed_data.csv", {}).each_with_index do |row, i|
   # Skips top of csv file.
   if i < 7
   	next
@@ -36,8 +21,7 @@ CSV.foreach('db/seed_data.csv', {}) do |row|
 
   # Assigns new user.
   if row[0].to_s.include?('Payments to')
-  	user_name = row[0].to_s.split.last 
-  	user = User.find_by_username(user_name)
+  	user = row[0].to_s.split.last 
   	# Skip to next line.
  	next
   end
@@ -91,6 +75,7 @@ CSV.foreach('db/seed_data.csv', {}) do |row|
   	  # Extract payments.
   	  case k 
   	  when "Stuart"
+  	  	puts "hash " + pay_hash[k].to_s
   	  	paysb = row[pay_hash[k]].to_f
   	  when "Simon"
   	  	paysc = row[pay_hash[k]].to_f
@@ -102,5 +87,12 @@ CSV.foreach('db/seed_data.csv', {}) do |row|
   	end
   end
 
-  Payment.create! :user_id => user.id, :date => date, :memo => memo, :paysb => paysb, :paysc => paysc, :payks => payks, :paykn => paykn
+  puts date
+  puts memo
+  puts "Stuart: " + paysb.to_s
+  puts "Simon: " + paysc.to_s
+  puts "Katy: " + payks.to_s
+  puts "Kieran: " + paykn.to_s
+
+  puts "--"
 end
