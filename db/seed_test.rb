@@ -1,6 +1,10 @@
 # Seed Test
 # Stuart Bradley
 # 26/02/2015
+#
+# Feels good to write new
+# code. A few dirty workarounds,
+# otherwise, elegant.
 
 require 'csv'
 

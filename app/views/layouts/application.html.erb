@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html>
+<p class="navbar-text pull-right">
+  <% if user_signed_in? %>
+    Logged in as <strong><%= current_user.username %></strong>.
+    <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+  <% end %>
+</p>
 <head>
-  <title>FlatSite</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <title>BioinfRequests</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+
+<% if alert %>
+  <p class="alert alert-error"><%= alert %></p>
+<% end %>
+
 
 <%= yield %>
 
