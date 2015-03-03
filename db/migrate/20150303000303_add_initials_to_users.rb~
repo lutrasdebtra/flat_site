@@ -1,0 +1,4 @@
+class AddInitialsToUsers < ActiveRecord::Migration
+  def change
+  end
+end

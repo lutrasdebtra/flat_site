@@ -19,4 +19,23 @@ class User < ActiveRecord::Base
         where(conditions).first
       end
     end
+
+  def self.calculate_total_two_users(first_username, second_username)
+    first_user = User.where(username: first_username).first
+    second_user = User.where(username: second_username).first
+
+    first_user_total = 0
+
+    first_user.payments.each do |p|
+      first_user_total += eval("p.pay#{second_user.initials}")
+    end
+
+    second_user_total = 0
+
+    second_user.payments.each do |p|
+      second_user_total += eval("p.pay#{first_user.initials}")
+    end
+
+    return first_user_total - second_user_total
+  end
 end

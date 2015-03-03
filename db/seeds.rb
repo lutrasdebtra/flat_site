@@ -9,10 +9,10 @@
 User.delete_all
 Payment.delete_all
 
-User.create! :username => 'Stuart', :email => 'stuy.bradley@gmail.com', :password => 'topsecret', :password_confirmation => 'topsecret'
-User.create! :username => 'Simon', :email => 'simon.corkindale@rapide.co.nz', :password => 'topsecret', :password_confirmation => 'topsecret'
-User.create! :username => 'Katy', :email => 'katy.seddon@hotmail.com', :password => 'topsecret', :password_confirmation => 'topsecret'
-User.create! :username => 'Kieran', :email => 'kmaster101@gmail.com', :password => 'topsecret', :password_confirmation => 'topsecret'
+User.create! :username => 'Stuart', :email => 'stuy.bradley@gmail.com', :password => 'topsecret', :password_confirmation => 'topsecret', :initials => 'sb'
+User.create! :username => 'Simon', :email => 'simon.corkindale@rapide.co.nz', :password => 'topsecret', :password_confirmation => 'topsecret', :initials => 'sc'
+User.create! :username => 'Katy', :email => 'katy.seddon@hotmail.com', :password => 'topsecret', :password_confirmation => 'topsecret', :initials => 'ks'
+User.create! :username => 'Kieran', :email => 'kmaster101@gmail.com', :password => 'topsecret', :password_confirmation => 'topsecret', :initials => 'kn'
 
 
 require 'csv'

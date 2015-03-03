@@ -1,37 +1,31 @@
-<p id="notice"><%= notice %></p>
+<div class = "payment-form-div">
 
-<h1>Listing Payments</h1>
+  <div role="tabpanel">
 
-<table>
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Memo</th>
-      <th>Paysb</th>
-      <th>Payks</th>
-      <th>Paysc</th>
-      <th>Paykn</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#Stuart" aria-controls="Stuart" role="tab" data-toggle="tab">Stuart</a></li>
+      <li role="presentation"><a href="#Katy" aria-controls="Katy" role="tab" data-toggle="tab">Katy</a></li>
+      <li role="presentation"><a href="#Simon" aria-controls="Simon" role="tab" data-toggle="tab">Simon</a></li>
+      <li role="presentation"><a href="#Kieran" aria-controls="Kieran" role="tab" data-toggle="tab">Kieran</a></li>
+    </ul>
 
-  <tbody>
-    <% @payments.each do |payment| %>
-      <tr>
-        <td><%= payment.date %></td>
-        <td><%= payment.memo %></td>
-        <td><%= payment.paysb %></td>
-        <td><%= payment.payks %></td>
-        <td><%= payment.paysc %></td>
-        <td><%= payment.paykn %></td>
-        <td><%= link_to 'Show', payment %></td>
-        <td><%= link_to 'Edit', edit_payment_path(payment) %></td>
-        <td><%= link_to 'Destroy', payment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="Stuart">
+        <%= User.calculate_total_two_users('Stuart','Katy')%>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="Katy">
+        ...
+      </div>
+      <div role="tabpanel" class="tab-pane" id="Simon">
+        ... 
+      </div>
+      <div role="tabpanel" class="tab-pane" id="Kieran">
+        ...
+      </div>
+    </div>
 
-<br>
+  </div>
 
-<%= link_to 'New Payment', new_payment_path %>
+</div>
