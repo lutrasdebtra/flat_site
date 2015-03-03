@@ -13,16 +13,76 @@
     <!-- Tab panes -->
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active" id="Stuart">
-        <%= User.calculate_total_two_users('Stuart','Katy')%>
+        <table class="table table-bordered" id = "manager_table">
+          <thead>
+            <tr>
+              <th>Katy</th>
+              <th>Simon</th>
+              <th>Kieran</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="<%=User.td_cell_colour_class(@Stuart_Katy) %>"><%= '%.2f' % @Stuart_Katy %></td>
+              <td class="<%=User.td_cell_colour_class(@Stuart_Simon) %>"><%= '%.2f' % @Stuart_Simon%></td>
+              <td class="<%=User.td_cell_colour_class(@Stuart_Kieran) %>"><%= '%.2f' % @Stuart_Kieran%></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <div role="tabpanel" class="tab-pane" id="Katy">
-        ...
+        <table class="table table-bordered" id = "manager_table">
+          <thead>
+            <tr>
+              <th>Stuart</th>
+              <th>Simon</th>
+              <th>Kieran</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="<%=User.td_cell_colour_class(@Katy_Stuart) %>"><%= '%.2f' % @Katy_Stuart %></td>
+              <td class="<%=User.td_cell_colour_class(@Katy_Simon) %>"><%= '%.2f' % @Katy_Simon %></td>
+              <td class="<%=User.td_cell_colour_class(@Katy_Kieran) %>"><%= '%.2f' % @Katy_Kieran %></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <div role="tabpanel" class="tab-pane" id="Simon">
-        ... 
+        <table class="table table-bordered" id = "manager_table">
+          <thead>
+            <tr>
+              <th>Stuart</th>
+              <th>Katy</th>
+              <th>Kieran</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="<%=User.td_cell_colour_class(@Simon_Stuart) %>"><%= '%.2f' % @Simon_Stuart %></td>
+              <td class="<%=User.td_cell_colour_class(@Simon_Katy) %>"><%= '%.2f' % @Simon_Katy %></td>
+              <td class="<%=User.td_cell_colour_class(@Simon_Kieran) %>"><%= '%.2f' % @Simon_Kieran %></td>
+            </tr>
+          </tbody>
+        </table> 
       </div>
       <div role="tabpanel" class="tab-pane" id="Kieran">
-        ...
+        <table class="table table-bordered" id = "manager_table">
+          <thead>
+            <tr>
+              <th>Stuart</th>
+              <th>Katy</th>
+              <th>Simon</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="<%=User.td_cell_colour_class(@Kieran_Stuart) %>"><%= '%.2f' % @Kieran_Stuart %></td>
+              <td class="<%=User.td_cell_colour_class(@Kieran_Katy) %>"><%= '%.2f' % @Kieran_Katy %></td>
+              <td class="<%=User.td_cell_colour_class(@Kieran_Simon) %>"><%= '%.2f' % @Kieran_Simon %></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 

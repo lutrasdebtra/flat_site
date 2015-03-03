@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
       end
     end
 
+  # Calculates who owes who.
   def self.calculate_total_two_users(first_username, second_username)
     first_user = User.where(username: first_username).first
     second_user = User.where(username: second_username).first
@@ -37,5 +38,15 @@ class User < ActiveRecord::Base
     end
 
     return first_user_total - second_user_total
+  end
+
+  # Determines colour for TD cells.
+  def self.td_cell_colour_class(val)
+    colour = 'success'
+
+    if val < 0.0 
+      colour = 'danger'
+    end
+    return colour
   end
 end
