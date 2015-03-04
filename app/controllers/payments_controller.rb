@@ -10,21 +10,26 @@ class PaymentsController < ApplicationController
     @Stuart_Katy = User.calculate_total_two_users('Stuart','Katy')
     @Stuart_Simon = User.calculate_total_two_users('Stuart','Simon')
     @Stuart_Kieran = User.calculate_total_two_users('Stuart','Kieran')
+    @Stuart_Total = @Stuart_Katy + @Stuart_Kieran + @Stuart_Simon
 
     # Katy Payments.
     @Katy_Stuart = @Stuart_Katy * -1.0
     @Katy_Simon = User.calculate_total_two_users('Katy','Simon')
     @Katy_Kieran = User.calculate_total_two_users('Katy','Kieran')
+    @Katy_Total = @Katy_Stuart + @Katy_Simon + @Katy_Kieran
 
     # Simon Payments.
     @Simon_Stuart = @Stuart_Simon * -1.0
     @Simon_Katy = @Katy_Simon * -1.0
     @Simon_Kieran = User.calculate_total_two_users('Simon','Kieran')
+    @Simon_Total = @Simon_Stuart + @Simon_Katy + @Simon_Kieran
 
     # Kieran Payments.
     @Kieran_Stuart = @Stuart_Kieran * -1.0
     @Kieran_Katy = @Katy_Kieran * -1.0
     @Kieran_Simon = @Simon_Kieran * -1.0
+    @Kieran_Total = @Kieran_Stuart + @Kieran_Katy + @Kieran_Simon
+
     respond_with(@payments)
   end
 
