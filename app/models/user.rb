@@ -49,4 +49,13 @@ class User < ActiveRecord::Base
     end
     return colour
   end
+
+  def self.other_users(user)
+    @users = [] 
+    @users << User.find_by_username("Stuart")
+    @users << User.find_by_username("Katy")
+    @users << User.find_by_username("Simon")
+    @users << User.find_by_username("Kieran")
+    return @other_users = @users.reject {|x| x.username == user.username}
+  end
 end

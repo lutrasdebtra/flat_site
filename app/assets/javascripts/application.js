@@ -13,6 +13,7 @@
 //= require jquery
 //= require bootstrap
 //= require jquery_ujs
+//= require bootstrap-datepicker
 //= require_tree .
 
 $(document).ready( function () {
@@ -27,3 +28,10 @@ $(document).ready( function () {
       	"order": [[ 0, "desc" ]]
     });
 } );
+
+$(document).ready(function(){
+    $('.datepicker').datepicker({
+      format: "yyyy/mm/dd",
+      todayHighlight: true
+    });
+});

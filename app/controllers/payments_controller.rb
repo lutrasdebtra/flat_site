@@ -47,6 +47,7 @@ class PaymentsController < ApplicationController
 
   def create
     @payment = Payment.new(payment_params)
+    @payment["pay#{current_user.initials}"] = 0.to_f
     @payment.save
     respond_with(@payment)
   end

@@ -19,7 +19,7 @@
 	    <tr>
 	      <th>Date</th>
 	      <th>Memo</th>
-	      <% @other_users.each do |u| %>
+	      <% User.other_users(@user).each do |u| %>
 	      	<th><%=u.username%></th>
 	      <% end %>
 	      <th>&nbsp;</th>
@@ -30,7 +30,7 @@
 	      	<tr>
 	      	  <td><%= p.date %></td>
 	      	  <td><%= p.memo %></td>
-	      	  <% @other_users.each do |u| %>
+	      	  <% User.other_users(@user).each do |u| %>
 	      	  	<td> <%='$%.2f' % eval("p.pay#{u.initials}")%></td>
 	      	  <% end %>
 	      	  <td> 
