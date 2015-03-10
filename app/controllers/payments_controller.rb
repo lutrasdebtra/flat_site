@@ -50,18 +50,36 @@ class PaymentsController < ApplicationController
     @payment = Payment.new(payment_params)
     @payment["pay#{current_user.initials}"] = 0.to_f
     @payment.user_id = current_user.id
-    @payment.save
-    redirect_to(current_user)
+    respond_to do |format|
+      if @payment.save
+        format.html { redirect_to current_user, notice: 'Payment was successfully created.' }
+        format.json { render :show, status: :created, location: @payment }
+      else
+        format.html { render :new }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def update
+    respond_to do |format|
+      if @payment.update(payment_params)
+        format.html { redirect_to current_user, notice: 'Payment was successfully updated.' }
+        format.json { render :show, status: :ok, location: current_user }
+      else
+        format.html { render :edit }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
     @payment.update(payment_params)
-    redirect_to(current_user)
   end
 
   def destroy
     @payment.destroy
-    redirect_to(:back)
+    respond_to do |format|
+      format.html { redirect_to :back, notice: 'Payment was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   private
