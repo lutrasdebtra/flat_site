@@ -32,7 +32,10 @@
             </tr>
           </tbody>
         </table>
-        <%= link_to 'View Payments', User.find_by(username: 'Stuart') , class: "btn btn-primary"%>
+        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+          <%= link_to 'View Payments', User.find_by(username: 'Stuart') , class: "btn btn-primary"%>
+          <%= link_to "New Payment", new_payment_path, class: "btn btn-success" %>
+        </div>
       </div>
       <div role="tabpanel" class="tab-pane" id="Katy">
         <br />
@@ -54,7 +57,10 @@
             </tr>
           </tbody>
         </table>
-        <%= link_to 'View Payments', User.find_by(username: 'Katy') , class: "btn btn-primary"%>
+        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+          <%= link_to 'View Payments', User.find_by(username: 'Katy') , class: "btn btn-primary"%>
+          <%= link_to "New Payment", new_payment_path, class: "btn btn-success" %>
+        </div>
       </div>
       <div role="tabpanel" class="tab-pane" id="Simon">
         <br />
@@ -75,8 +81,11 @@
               <td class="<%=User.td_cell_colour_class(@Simon_Total) %>"><%= '$%.2f' % @Simon_Total%></td>
             </tr>
           </tbody>
-        </table> 
-        <%= link_to 'View Payments', User.find_by(username: 'Simon') , class: "btn btn-primary"%>
+        </table>
+        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+          <%= link_to 'View Payments', User.find_by(username: 'Simon') , class: "btn btn-primary"%>
+          <%= link_to "New Payment", new_payment_path, class: "btn btn-success" %>
+        </div>
       </div>
       <div role="tabpanel" class="tab-pane" id="Kieran">
         <br />
@@ -98,7 +107,10 @@
             </tr>
           </tbody>
         </table>
-        <%= link_to 'View Payments', User.find_by(username: 'Kieran') , class: "btn btn-primary"%>
+        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+          <%= link_to 'View Payments', User.find_by(username: 'Kieran') , class: "btn btn-primary"%>
+          <%= link_to "New Payment", new_payment_path, class: "btn btn-success" %>
+        </div>
       </div>
     </div>
 

@@ -13,13 +13,16 @@
 //= require jquery
 //= require bootstrap
 //= require jquery_ujs
-//= require turbolinks
 //= require_tree .
 
 $(document).ready( function () {
     $('#user_payment_table').DataTable({
       	"columnDefs": [
-      		{ "width": "8%", "targets": 2 }
+      		{ "width": "9%", "targets": 0 },
+      		{ "width": "7%", "targets": 2 },
+      		{ "width": "7%", "targets": 3 },
+      		{ "width": "7%", "targets": 4 },
+      		{ "width": "12%", "targets": 5 },
       	],
       	"order": [[ 0, "desc" ]]
     });

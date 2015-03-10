@@ -58,7 +58,7 @@ class PaymentsController < ApplicationController
 
   def destroy
     @payment.destroy
-    respond_with(@payment)
+    redirect_to(:back)
   end
 
   private

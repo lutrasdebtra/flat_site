@@ -3,6 +3,7 @@
 <%= stylesheet_link_tag "dataTables.bootstrap.css", media: "all" %>
 <%= javascript_include_tag "dataTables.bootstrap.js" %>
 
+
 <% if !flash[:notice].blank? %>
   <div class="alert alert-info">
   <%= flash[:notice] %>
@@ -21,6 +22,7 @@
 	      <% @other_users.each do |u| %>
 	      	<th><%=u.username%></th>
 	      <% end %>
+	      <th>&nbsp;</th>
 	    </tr>
 	  </thead>
 	  <tbody>
@@ -31,8 +33,20 @@
 	      	  <% @other_users.each do |u| %>
 	      	  	<td> <%='$%.2f' % eval("p.pay#{u.initials}")%></td>
 	      	  <% end %>
+	      	  <td> 
+	      	  <% if @user.username == current_user.username %>
+	      	  	<div class="btn-group" role="group" aria-label="...">
+	      	  	  <%= link_to "Edit", edit_payment_path(p), class: "btn btn-success" %>
+	      	  	  <%= link_to "Delete", p, method: :delete, class: "btn btn-danger", data: { confirm:  "Are you sure that you wish to delete #{p.memo}?" } %>
+	      	  	</div>
+	      	  <% end %>
+	      	  </td>
 	      	</tr>
 	      <% end %>
 	  </tbody>
 	</table>
+	<div class="btn-group" role="group" aria-label="...">
+  	  <%= link_to "New", new_payment_path, class: "btn btn-success btn-lg" %>
+  	  <%= link_to 'Back', :root, class: "btn btn-primary btn-lg" %>
+  	</div>
 </div>
