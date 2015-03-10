@@ -22,8 +22,8 @@ class User < ActiveRecord::Base
 
   # Calculates who owes who.
   def self.calculate_total_two_users(first_username, second_username)
-    first_user = User.where(username: first_username).first
-    second_user = User.where(username: second_username).first
+    first_user = User.find_by(username: first_username)
+    second_user = User.find_by(username: second_username)
 
     first_user_total = 0
 

@@ -10,6 +10,13 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @user = User.find(params[:id])
+    @users = [] 
+    @users << User.find_by_username("Stuart")
+    @users << User.find_by_username("Katy")
+    @users << User.find_by_username("Simon")
+    @users << User.find_by_username("Kieran")
+    @other_users = @users.reject {|x| x.username == @user.username}
   end
 
   # GET /users/new

@@ -3,7 +3,7 @@
   <div role="tabpanel">
 
     <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist">
+    <ul class="nav nav-pills" role="tablist">
       <li role="presentation" class="active"><a href="#Stuart" aria-controls="Stuart" role="tab" data-toggle="tab">Stuart</a></li>
       <li role="presentation"><a href="#Katy" aria-controls="Katy" role="tab" data-toggle="tab">Katy</a></li>
       <li role="presentation"><a href="#Simon" aria-controls="Simon" role="tab" data-toggle="tab">Simon</a></li>
@@ -13,6 +13,7 @@
     <!-- Tab panes -->
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active" id="Stuart">
+        <br />
         <table class="table table-bordered" id = "manager_table">
           <thead>
             <tr>
@@ -31,8 +32,10 @@
             </tr>
           </tbody>
         </table>
+        <%= link_to 'View Payments', User.find_by(username: 'Stuart') , class: "btn btn-primary"%>
       </div>
       <div role="tabpanel" class="tab-pane" id="Katy">
+        <br />
         <table class="table table-bordered" id = "manager_table">
           <thead>
             <tr>
@@ -51,8 +54,10 @@
             </tr>
           </tbody>
         </table>
+        <%= link_to 'View Payments', User.find_by(username: 'Katy') , class: "btn btn-primary"%>
       </div>
       <div role="tabpanel" class="tab-pane" id="Simon">
+        <br />
         <table class="table table-bordered" id = "manager_table">
           <thead>
             <tr>
@@ -71,8 +76,10 @@
             </tr>
           </tbody>
         </table> 
+        <%= link_to 'View Payments', User.find_by(username: 'Simon') , class: "btn btn-primary"%>
       </div>
       <div role="tabpanel" class="tab-pane" id="Kieran">
+        <br />
         <table class="table table-bordered" id = "manager_table">
           <thead>
             <tr>
@@ -91,6 +98,7 @@
             </tr>
           </tbody>
         </table>
+        <%= link_to 'View Payments', User.find_by(username: 'Kieran') , class: "btn btn-primary"%>
       </div>
     </div>
 

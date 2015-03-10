@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   resources :payments
-  resources :users, only: [:show]
 
   devise_for :users
+  resources :users, only: [:show]
 
   root :controller => 'payments', :action => :index
   # The priority is based upon order of creation: first created -> highest priority.

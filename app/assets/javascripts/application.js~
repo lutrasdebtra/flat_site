@@ -17,10 +17,5 @@
 //= require_tree .
 
 $(document).ready( function () {
-    $('#user_payment_table').DataTable({
-      	"columnDefs": [
-      		{ "width": "8%", "targets": 2 }
-      	],
-      	"order": [[ 0, "desc" ]]
-    });
+    $('#user_payment_table').DataTable();
 } );
