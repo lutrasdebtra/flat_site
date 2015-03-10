@@ -25,13 +25,13 @@ class User < ActiveRecord::Base
     first_user = User.find_by(username: first_username)
     second_user = User.find_by(username: second_username)
 
-    first_user_total = 0
+    first_user_total = 0.0
 
     first_user.payments.each do |p|
       first_user_total += eval("p.pay#{second_user.initials}")
     end
 
-    second_user_total = 0
+    second_user_total = 0.0
 
     second_user.payments.each do |p|
       second_user_total += eval("p.pay#{first_user.initials}")
