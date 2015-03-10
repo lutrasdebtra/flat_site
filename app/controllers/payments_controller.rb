@@ -40,6 +40,9 @@ class PaymentsController < ApplicationController
   def new
     @payment = Payment.new
     @payment.date = Time.now.strftime('%Y-%m-%d')
+    User.other_users(current_user).each do |u|
+      @payment["pay#{u.initials}"] = 0.to_f
+    end
     respond_with(@payment)
   end
 
