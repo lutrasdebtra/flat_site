@@ -39,6 +39,7 @@ class PaymentsController < ApplicationController
 
   def new
     @payment = Payment.new
+    @payment.date = Time.now.strftime('%Y-%m-%d')
     respond_with(@payment)
   end
 
@@ -48,13 +49,14 @@ class PaymentsController < ApplicationController
   def create
     @payment = Payment.new(payment_params)
     @payment["pay#{current_user.initials}"] = 0.to_f
+    @payment.user_id = current_user.id
     @payment.save
-    respond_with(@payment)
+    redirect_to(current_user)
   end
 
   def update
     @payment.update(payment_params)
-    respond_with(@payment)
+    redirect_to(current_user)
   end
 
   def destroy
@@ -68,6 +70,6 @@ class PaymentsController < ApplicationController
     end
 
     def payment_params
-      params.require(:payment).permit(:date, :memo, :paysb, :payks, :paysc, :paykn)
+      params.require(:payment).permit(:user_id, :date, :memo, :paysb, :payks, :paysc, :paykn)
     end
 end

@@ -24,7 +24,7 @@
       </thead>
       <tbody>
           <tr>
-            <td><%= f.text_field :date, class: "form-control datepicker", type: 'text', value: Time.now.strftime('%Y-%m-%d')  %></td>
+            <td><%= f.text_field :date, class: "form-control datepicker", type: 'text'  %></td>
             <td><%= f.text_field :memo, class: "form-control", type: 'text' %></td>
             <% User.other_users(current_user).each do |u| %>
               <td><%= f.number_field eval(":pay#{u.initials}"), :step => 'any', class: "form-control", type: 'number' %></td>
@@ -33,8 +33,8 @@
       </tbody>
     </table>
     <div class="btn-group" role="group" aria-label="...">
-      <%= f.submit "Submit", class: "btn btn-success" %>
-      <%= link_to 'Cancel', :root, class: "btn btn-warning" %>
+      <%= f.submit "Submit", class: "btn btn-success btn-lg" %>
+      <%= link_to 'Cancel', :back, class: "btn btn-warning btn-lg" %>
     </div>
   </form>
 <% end %>
