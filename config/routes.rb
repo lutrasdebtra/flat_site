@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :shopping_lists
+
   resources :payments
 
   devise_for :users, :skip => [:registrations]                                          

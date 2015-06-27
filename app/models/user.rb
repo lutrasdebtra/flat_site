@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :payments
+  has_many :shopping_lists
   attr_accessor :login
 
   validates :username,
@@ -31,9 +32,17 @@ class User < ActiveRecord::Base
       first_user_total += eval("p.pay#{second_user.initials}")
     end
 
+    first_user.shopping_lists.each do |p|
+      first_user_total += eval("p.pay#{second_user.initials}")
+    end
+
     second_user_total = 0.0
 
     second_user.payments.each do |p|
+      second_user_total += eval("p.pay#{first_user.initials}")
+    end
+
+    second_user.shopping_lists.each do |p|
       second_user_total += eval("p.pay#{first_user.initials}")
     end
 

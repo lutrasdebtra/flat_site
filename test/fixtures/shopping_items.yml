@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  memo: MyString
+  price: 9.99
+  shopping_list_id: 1
+  payees: MyString
+
+two:
+  memo: MyString
+  price: 9.99
+  shopping_list_id: 1
+  payees: MyString
