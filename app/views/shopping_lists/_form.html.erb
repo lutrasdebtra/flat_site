@@ -26,7 +26,7 @@
 
   <table class="table table-bordered" id="form_table">
     <thead>
-          <tr>
+          <tr class="active">
             <th>Memo</th>
             <th>Price</th>
             <th style="text-align:center;vertical-align:middle;"><%= current_user.username %></th>
@@ -55,7 +55,7 @@
 
     </tbody>
     <tbody>
-      <tr style="font-weight: bold;">
+      <tr style="font-weight: bold;" class="active">
         <td>Totals:</td>
         <td style="text-align:right;vertical-align:middle;" id="total"><%= @shopping_list.total %></td>
         <td style="text-align:center;vertical-align:middle;" id="user_total_<%=current_user.id%>"><%= eval("@shopping_list.pay#{current_user.initials}") %></td>

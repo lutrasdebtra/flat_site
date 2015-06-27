@@ -35,23 +35,18 @@
 	      	  	<td><b>Shopping List: </b><%= p.name %></td>
 	      	  <% end %>
 	      	  <% User.other_users(@user).each do |u| %>
-	      	  	<td> <%='$%.2f' % eval("p.pay#{u.initials}")%></td>
+	      	  	<td> <%='%.2f' % eval("p.pay#{u.initials}")%></td>
 	      	  <% end %>
 	      	  <td> 
 		      	  <% if p.instance_of? Payment %>
 			      	  <% if @user.username == current_user.username %>
-			      	  	<div class="btn-group" role="group" aria-label="...">
+			      	  	<div class="btn-group btn-group-justified" role="group" aria-label="...">
 			      	  	  <%= link_to "Edit", edit_payment_path(p), class: "btn btn-success" %>
 			      	  	  <%= link_to "Delete", p, method: :delete, class: "btn btn-danger", data: { confirm:  "Are you sure that you wish to delete #{p.memo}?" } %>
 			      	  	</div>
 			      	  <% end %>
 		      	  <% else %>
-		      	  	<% if @user.username == current_user.username %>
-			      	  	<div class="btn-group" role="group" aria-label="...">
-			      	  	  <%= link_to "Edit", edit_shopping_list_path(p), class: "btn btn-success" %>
-			      	  	  <%= link_to "Delete", p, method: :delete, class: "btn btn-danger", data: { confirm:  "Are you sure that you wish to delete #{p.name}?" } %>
-			      	  	</div>
-		      	  	<% end %>
+		      	  	<%= link_to "Show", p, class: "btn btn-info btn-block" %>
 		      	  <% end %>
 	      	  </td>
 	      	</tr>

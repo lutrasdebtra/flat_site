@@ -1,19 +1,63 @@
-<p id="notice"><%= notice %></p>
+<div class = "show-form-div">
+	<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @shopping_list.name %>
-</p>
+    <h3><b>Name:</b> <%= @shopping_list.name %></h3>
+    <h3><b>Date:</b> <%= @shopping_list.date %></h3>
+  	<br />
+	<table class="table table-bordered" id="form_table">
+		<thead>
+			<tr class="active">
+				<th>Memo</th>
+				<th>Price</th>
+				<th style="text-align:center;vertical-align:middle;"><%= current_user.username %></th>
+				<% User.other_users(current_user).each do |u| %>
+			  		<th style="text-align:center;vertical-align:middle;"><%= u.username %></th>
+				<% end %>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+		  <% @shopping_list.shopping_items.each do |k| %>
+		    <tr>
+		      <td><%= k.memo %></td>
+		      <td style="text-align:right;vertical-align:middle;"><%= k.price %></td>
+		      <td style="text-align:center;vertical-align:middle;">
+		        <% if k.checked(current_user.id.to_s) %>
+		        	<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+				<% end %>
+		      </td>
+		      <% User.other_users(current_user).each do |u| %>
+		        <td style="text-align:center;vertical-align:middle;">
+		          <% if k.checked(u.id.to_s) %>
+		        	<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+				  <% end %>
+		        </td>
+		      <% end %>
+		      <td></td>
+		    </tr>
+		  <% end %>
 
-<p>
-  <strong>Date:</strong>
-  <%= @shopping_list.date %>
-</p>
+		</tbody>
+		<thead>
+		  <tr style="font-weight: bold;" class="active">
+		    <td>Totals:</td>
+		    <td style="text-align:right;vertical-align:middle;"><%= @shopping_list.total %></td>
+		    <td style="text-align:center;vertical-align:middle;"><%= eval("@shopping_list.pay#{current_user.initials}") %></td>
+		    <% User.other_users(current_user).each do |u| %>
+		      <td style="text-align:center;vertical-align:middle;"><%= eval("@shopping_list.pay#{u.initials}") %></td>
+		    <% end %>
+		    <td></td>
+		  </tr>
+		</thead>
 
-<p>
-  <strong>User:</strong>
-  <%= @shopping_list.user_id %>
-</p>
-
-<%= link_to 'Edit', edit_shopping_list_path(@shopping_list) %> |
-<%= link_to 'Back', shopping_lists_path %>
+	</table>
+	<% if @shopping_list.user_id == current_user.id %>
+		<div class="btn-group" role="group" aria-label="...">
+			<%= link_to 'Edit', edit_shopping_list_path(@shopping_list), class: "btn btn-success btn-lg" %> 
+	    	<%= link_to 'Cancel', :back, class: "btn btn-warning btn-lg" %>
+	    	<%= link_to "Delete", @shopping_list, method: :delete, class: "btn btn-lg btn-danger", data: { confirm:  "Are you sure that you wish to delete #{@shopping_list.name}?" } %>
+	  	</div>
+  	<% else %>
+  		<%= link_to 'Cancel', :back, class: "btn btn-warning btn-lg" %>
+  	<% end %>
+</div>
