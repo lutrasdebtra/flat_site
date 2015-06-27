@@ -74,7 +74,6 @@ class PaymentsController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
-    @payment.update(payment_params)
   end
 
   def destroy

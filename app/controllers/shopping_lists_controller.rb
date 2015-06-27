@@ -31,14 +31,28 @@ class ShoppingListsController < ApplicationController
 
     set_amounts
 
-    @shopping_list.save
-    respond_with(@shopping_list)
+    respond_to do |format|
+      if @shopping_list.save
+        format.html { redirect_to current_user, notice: 'Shopping List was successfully created.' }
+        format.json { render :show, status: :created, location: @shopping_list }
+      else
+        format.html { render :new }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def update
     set_amounts
-    @shopping_list.update(shopping_list_params)
-    respond_with(@shopping_list)
+    respond_to do |format|
+      if @shopping_list.update(shopping_list_params)
+        format.html { redirect_to current_user, notice: 'Shopping List was successfully updated.' }
+        format.json { render :show, status: :ok, location: current_user }
+      else
+        format.html { render :edit }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
