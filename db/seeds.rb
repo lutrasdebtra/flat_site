@@ -101,6 +101,6 @@ CSV.foreach('db/seed_data.csv', {}) do |row|
   	  end
   	end
   end
-
+  puts date
   Payment.create! :user_id => user.id, :date => date, :memo => memo, :paysb => paysb, :paysc => paysc, :payks => payks, :paykn => paykn
 end
