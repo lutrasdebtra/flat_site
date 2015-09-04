@@ -41,10 +41,10 @@
 		<thead>
 		  <tr style="font-weight: bold;" class="active">
 		    <td>Totals:</td>
-		    <td style="text-align:right;vertical-align:middle;"><%= @shopping_list.total %></td>
-		    <td style="text-align:center;vertical-align:middle;"><%= eval("@shopping_list.pay#{current_user.initials}") %></td>
+		    <td style="text-align:right;vertical-align:middle;"><%= '%.2f' % @shopping_list.total %></td>
+		    <td style="text-align:center;vertical-align:middle;"><%= '%.2f' % eval("@shopping_list.pay#{current_user.initials}") %></td>
 		    <% User.other_users(current_user).each do |u| %>
-		      <td style="text-align:center;vertical-align:middle;"><%= eval("@shopping_list.pay#{u.initials}") %></td>
+		      <td style="text-align:center;vertical-align:middle;"><%= '%.2f' % eval("@shopping_list.pay#{u.initials}") %></td>
 		    <% end %>
 		    <td></td>
 		  </tr>

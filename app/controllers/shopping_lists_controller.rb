@@ -57,7 +57,10 @@ class ShoppingListsController < ApplicationController
 
   def destroy
     @shopping_list.destroy
-    respond_with(@shopping_list)
+    respond_to do |format|
+      format.html { redirect_to current_user, notice: 'Payment was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   private
