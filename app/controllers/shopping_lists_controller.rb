@@ -97,14 +97,14 @@ class ShoppingListsController < ApplicationController
       @shopping_list = ShoppingList.find(params[:id])
     end
 
-    def shopping_list_push("type")
+    def shopping_list_push(type)
       Pushbullet.set_access_token(current_user.push_key)
       User.other_users(current_user).each do |u|
         if u.push_key == nil
           next
         end
         if @shopping_list["pay#{u.initials}"] > 0.0
-          if "type" == "create"
+          if type == "create"
             Pushbullet::V2::Push.note('A new shopping list has been created' + , "You owe: " + @shopping_list["pay#{u.initials}"].to_s + ", to: " + current_user.username + ", for: " + @shopping_list.name,{'email' => u.email})
           else 
             Pushbullet::V2::Push.note('A shopping list has been updated', "You owe: " + @shopping_list["pay#{u.initials}"].to_s + ", to: " + current_user.username + ", for: " + @shopping_list.name + " - " + @shopping_list.date ,{'email' => u.email})

@@ -91,14 +91,14 @@ class PaymentsController < ApplicationController
       @payment = Payment.find(params[:id])
     end
 
-    def payment_push("type")
+    def payment_push(type)
       Pushbullet.set_access_token(current_user.push_key)
       User.other_users(current_user).each do |u|
         if u.push_key == nil
           next
         end
         if @payment["pay#{u.initials}"] > 0.0
-          if "type" == "create"
+          if type == "create"
             Pushbullet::V2::Push.note('A new payment has been created' + , "You owe: " + @payment["pay#{u.initials}"].to_s + ", to: " + current_user.username + ", for: " + @payment.memo,{'email' => u.email})
           else 
             Pushbullet::V2::Push.note('A payment has been updated', "You owe: " + @payment["pay#{u.initials}"].to_s + ", to: " + current_user.username + ", for: " + @payment.memo + " - " + @payment.date ,{'email' => u.email})
