@@ -105,7 +105,7 @@ class ShoppingListsController < ApplicationController
         end
         if @shopping_list["pay#{u.initials}"] > 0.0
           if type == "create"
-            Pushbullet::V2::Push.note('A new shopping list has been created' + , "You owe: " + @shopping_list["pay#{u.initials}"].to_s + ", to: " + current_user.username + ", for: " + @shopping_list.name,{'email' => u.email})
+            Pushbullet::V2::Push.note('A new shopping list has been created', "You owe: " + @shopping_list["pay#{u.initials}"].to_s + ", to: " + current_user.username + ", for: " + @shopping_list.name,{'email' => u.email})
           else 
             Pushbullet::V2::Push.note('A shopping list has been updated', "You owe: " + @shopping_list["pay#{u.initials}"].to_s + ", to: " + current_user.username + ", for: " + @shopping_list.name + " - " + @shopping_list.date ,{'email' => u.email})
           end

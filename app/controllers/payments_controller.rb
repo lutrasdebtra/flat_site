@@ -99,7 +99,7 @@ class PaymentsController < ApplicationController
         end
         if @payment["pay#{u.initials}"] > 0.0
           if type == "create"
-            Pushbullet::V2::Push.note('A new payment has been created' + , "You owe: " + @payment["pay#{u.initials}"].to_s + ", to: " + current_user.username + ", for: " + @payment.memo,{'email' => u.email})
+            Pushbullet::V2::Push.note('A new payment has been created', "You owe: " + @payment["pay#{u.initials}"].to_s + ", to: " + current_user.username + ", for: " + @payment.memo,{'email' => u.email})
           else 
             Pushbullet::V2::Push.note('A payment has been updated', "You owe: " + @payment["pay#{u.initials}"].to_s + ", to: " + current_user.username + ", for: " + @payment.memo + " - " + @payment.date ,{'email' => u.email})
           end
