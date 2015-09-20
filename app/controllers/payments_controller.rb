@@ -6,6 +6,21 @@ class PaymentsController < ApplicationController
   def index
     @payments = Payment.all
 
+    # Get inter-user totals, better than hardcoding.
+    @user_payments = Hash.new
+
+    User.all.each do |u|
+      user_payment_hash = Hash.new
+      User.other_users(u).each do |u_other|
+        user_payment_hash[u_other.username] = User.calculate_total_two_users(u.username, u_other.username)
+      end
+      # Add user totals.
+      val_array = user_payment_hash.values
+      user_payment_hash['Total'] = val_array.inject{|sum,x| sum + x }
+      # Add hash to main hash
+      @user_payments[u.username] = user_payment_hash
+    end 
+
     # Stuart Payments.
     @Stuart_Katy = User.calculate_total_two_users('Stuart','Katy')
     @Stuart_Simon = User.calculate_total_two_users('Stuart','Simon')

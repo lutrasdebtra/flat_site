@@ -1,131 +1,49 @@
 <div class = "payment-form-div">
-
   <div role="tabpanel">
-
-    <!-- Nav tabs -->
     <ul class="nav nav-pills" role="tablist">
-      <li role="presentation" class="active"><a href="#Stuart" aria-controls="Stuart" role="tab" data-toggle="tab">Stuart</a></li>
-      <li role="presentation"><a href="#Katy" aria-controls="Katy" role="tab" data-toggle="tab">Katy</a></li>
-      <li role="presentation"><a href="#Simon" aria-controls="Simon" role="tab" data-toggle="tab">Simon</a></li>
-      <li role="presentation"><a href="#Kieran" aria-controls="Kieran" role="tab" data-toggle="tab">Kieran</a></li>
+      <% User.all.each_with_index do |u, i| %>
+        <% if i == 0 %>
+          <li role="presentation" class="active"><a href="#<%=u.username%>"  aria-controls="<%=u.username%>" role="tab" data-toggle="tab"><%=u.username%></a></li>
+        <% else %>
+          <li role="presentation"><a href="#<%=u.username%>"  aria-controls="<%=u.username%>" role="tab" data-toggle="tab"><%=u.username%></a></li>
+        <% end %>
+      <% end %>
     </ul>
-
-    <!-- Tab panes -->
     <div class="tab-content">
-      <div role="tabpanel" class="tab-pane active" id="Stuart">
-        <br />
-        <table class="table table-bordered" id = "manager_table">
-          <thead>
-            <tr>
-              <th>Katy</th>
-              <th>Simon</th>
-              <th>Kieran</th>
-              <th>Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="<%=User.td_cell_colour_class(@Stuart_Katy) %>"><%= '%.2f' % @Stuart_Katy %></td>
-              <td class="<%=User.td_cell_colour_class(@Stuart_Simon) %>"><%= '%.2f' % @Stuart_Simon%></td>
-              <td class="<%=User.td_cell_colour_class(@Stuart_Kieran) %>"><%= '%.2f' % @Stuart_Kieran%></td>
-              <td class="<%=User.td_cell_colour_class(@Stuart_Total) %>"><%= '%.2f' % @Stuart_Total%></td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="btn-group btn-group-justified" role="group" aria-label="...">
-          <%= link_to 'View Payments', User.find_by(username: 'Stuart') , class: "btn btn-primary"%>
+      <% User.all.each_with_index do |u, i| %>
+        <% if i == 0 %>
+          <div role="tabpanel" class="tab-pane active" id="<%=u.username%>">
+        <% else %>
+          <div role="tabpanel" class="tab-pane" id="<%=u.username%>">
+        <% end %> 
+          <br />
+          <table class="table table-bordered" id = "manager_table">
+             <thead>
+              <tr>
+                <% User.other_users(u).each do |u_other| %>
+                  <th><%=u_other.username%></th>
+                <% end %>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <% User.other_users(u).each do |u_other| %>
+                  <td class="<%=User.td_cell_colour_class(@user_payments[u.username][u_other.username]) %>"><%= '%.2f' % @user_payments[u.username][u_other.username] %></td>
+                <% end %>
+                  <td class="<%=User.td_cell_colour_class(@user_payments[u.username]['Total']) %>"><%= '%.2f' % @user_payments[u.username]['Total']%></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="btn-group btn-group-justified" role="group" aria-label="...">
+            <%= link_to 'View Payments', User.find_by(username: u.username) , class: "btn btn-primary"%>
+          </div>
+          <div class="btn-group btn-group-justified" role="group" aria-label="...">
+            <%= link_to "New Payment", new_payment_path, class: "btn btn-success" %>
+            <%= link_to "New Receipt", new_shopping_list_path, class: "btn btn-success" %>
+          </div>
         </div>
-        <div class="btn-group btn-group-justified" role="group" aria-label="...">
-          <%= link_to "New Payment", new_payment_path, class: "btn btn-success" %>
-          <%= link_to "New Receipt", new_shopping_list_path, class: "btn btn-success" %>
-        </div>
-      </div>
-      <div role="tabpanel" class="tab-pane" id="Katy">
-        <br />
-        <table class="table table-bordered" id = "manager_table">
-          <thead>
-            <tr>
-              <th>Stuart</th>
-              <th>Simon</th>
-              <th>Kieran</th>
-              <th>Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="<%=User.td_cell_colour_class(@Katy_Stuart) %>"><%= '%.2f' % @Katy_Stuart %></td>
-              <td class="<%=User.td_cell_colour_class(@Katy_Simon) %>"><%= '%.2f' % @Katy_Simon %></td>
-              <td class="<%=User.td_cell_colour_class(@Katy_Kieran) %>"><%= '%.2f' % @Katy_Kieran %></td>
-              <td class="<%=User.td_cell_colour_class(@Katy_Total) %>"><%= '%.2f' % @Katy_Total%></td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="btn-group btn-group-justified" role="group" aria-label="...">
-          <%= link_to 'View Payments', User.find_by(username: 'Katy') , class: "btn btn-primary"%>
-        </div>
-        <div class="btn-group btn-group-justified" role="group" aria-label="...">
-          <%= link_to "New Payment", new_payment_path, class: "btn btn-success" %>
-          <%= link_to "New Receipt", new_shopping_list_path, class: "btn btn-success" %>
-        </div>
-      </div>
-      <div role="tabpanel" class="tab-pane" id="Simon">
-        <br />
-        <table class="table table-bordered" id = "manager_table">
-          <thead>
-            <tr>
-              <th>Stuart</th>
-              <th>Katy</th>
-              <th>Kieran</th>
-              <th>Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="<%=User.td_cell_colour_class(@Simon_Stuart) %>"><%= '%.2f' % @Simon_Stuart %></td>
-              <td class="<%=User.td_cell_colour_class(@Simon_Katy) %>"><%= '%.2f' % @Simon_Katy %></td>
-              <td class="<%=User.td_cell_colour_class(@Simon_Kieran) %>"><%= '%.2f' % @Simon_Kieran %></td>
-              <td class="<%=User.td_cell_colour_class(@Simon_Total) %>"><%= '%.2f' % @Simon_Total%></td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="btn-group btn-group-justified" role="group" aria-label="...">
-          <%= link_to 'View Payments', User.find_by(username: 'Simon') , class: "btn btn-primary"%>
-        </div>
-        <div class="btn-group btn-group-justified" role="group" aria-label="...">
-          <%= link_to "New Payment", new_payment_path, class: "btn btn-success" %>
-          <%= link_to "New Receipt", new_shopping_list_path, class: "btn btn-success" %>
-        </div>
-      </div>
-      <div role="tabpanel" class="tab-pane" id="Kieran">
-        <br />
-        <table class="table table-bordered" id = "manager_table">
-          <thead>
-            <tr>
-              <th>Stuart</th>
-              <th>Katy</th>
-              <th>Simon</th>
-              <th>Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="<%=User.td_cell_colour_class(@Kieran_Stuart) %>"><%= '%.2f' % @Kieran_Stuart %></td>
-              <td class="<%=User.td_cell_colour_class(@Kieran_Katy) %>"><%= '%.2f' % @Kieran_Katy %></td>
-              <td class="<%=User.td_cell_colour_class(@Kieran_Simon) %>"><%= '%.2f' % @Kieran_Simon %></td>
-              <td class="<%=User.td_cell_colour_class(@Kieran_Total) %>"><%= '%.2f' % @Kieran_Total%></td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="btn-group btn-group-justified" role="group" aria-label="...">
-          <%= link_to 'View Payments', User.find_by(username: 'Kieran') , class: "btn btn-primary"%>
-        </div>
-        <div class="btn-group btn-group-justified" role="group" aria-label="...">
-          <%= link_to "New Payment", new_payment_path, class: "btn btn-success" %>
-          <%= link_to "New Receipt", new_shopping_list_path, class: "btn btn-success" %>
-        </div>
-      </div>
+      <% end %>
     </div>
-
   </div>
-
 </div>

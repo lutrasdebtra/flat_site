@@ -60,11 +60,6 @@ class User < ActiveRecord::Base
   end
 
   def self.other_users(user)
-    @users = [] 
-    @users << User.find_by_username("Stuart")
-    @users << User.find_by_username("Katy")
-    @users << User.find_by_username("Simon")
-    @users << User.find_by_username("Kieran")
-    return @other_users = @users.reject {|x| x.username == user.username}
+    return @other_users = User.all.reject {|x| x.username == user.username}
   end
 end
