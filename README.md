@@ -59,7 +59,7 @@ Other gems include one to [validate times](https://github.com/adzap/validates_ti
 
 The MIT License (MIT)
 
-Copyright (c) [2015] [Stuart Bradlety]
+Copyright (c) [2015] [Stuart Bradley]
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
