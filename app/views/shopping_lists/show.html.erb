@@ -20,7 +20,7 @@
 		  <% @shopping_list.shopping_items.each do |k| %>
 		    <tr>
 		      <td><%= k.memo %></td>
-		      <td style="text-align:right;vertical-align:middle;"><%= k.price %></td>
+		      <td style="text-align:right;vertical-align:middle;"><%= '%.2f' % k.price %></td>
 		      <td style="text-align:center;vertical-align:middle;">
 		        <% if k.checked(current_user.id.to_s) %>
 		        	<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
