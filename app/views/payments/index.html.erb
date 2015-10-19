@@ -1,8 +1,8 @@
 <div class = "payment-form-div">
   <div role="tabpanel">
     <ul class="nav nav-pills" role="tablist">
-      <% User.all.each_with_index do |u, i| %>
-        <% if i == 0 %>
+      <% User.all.each do |u| %>
+        <% if current_user == u %>
           <li role="presentation" class="active"><a href="#<%=u.username%>"  aria-controls="<%=u.username%>" role="tab" data-toggle="tab"><%=u.username%></a></li>
         <% else %>
           <li role="presentation"><a href="#<%=u.username%>"  aria-controls="<%=u.username%>" role="tab" data-toggle="tab"><%=u.username%></a></li>
@@ -10,8 +10,8 @@
       <% end %>
     </ul>
     <div class="tab-content">
-      <% User.all.each_with_index do |u, i| %>
-        <% if i == 0 %>
+      <% User.all.each do |u| %>
+        <% if current_user == u %>
           <div role="tabpanel" class="tab-pane active" id="<%=u.username%>">
         <% else %>
           <div role="tabpanel" class="tab-pane" id="<%=u.username%>">
