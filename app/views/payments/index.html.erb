@@ -38,10 +38,12 @@
           <div class="btn-group btn-group-justified" role="group" aria-label="...">
             <%= link_to 'View Payments', User.find_by(username: u.username) , class: "btn btn-primary"%>
           </div>
-          <div class="btn-group btn-group-justified" role="group" aria-label="...">
-            <%= link_to "New Payment", new_payment_path, class: "btn btn-success" %>
-            <%= link_to "New Receipt", new_shopping_list_path, class: "btn btn-success" %>
-          </div>
+          <% if current_user == u %>
+            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+              <%= link_to "New Payment", new_payment_path, class: "btn btn-success" %>
+              <%= link_to "New Receipt", new_shopping_list_path, class: "btn btn-success" %>
+            </div>
+          <% end %>
         </div>
       <% end %>
     </div>
