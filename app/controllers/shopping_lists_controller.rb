@@ -73,6 +73,9 @@ class ShoppingListsController < ApplicationController
         user_totals[u.id.to_s] = 0.0
       end 
       @shopping_list.shopping_items.each do |i|
+      	if i.memo.blank? and i.price.blank?
+      	  next
+      	end
         division = 0
         i.payees.each do |p|
           if user_totals[p.to_s]

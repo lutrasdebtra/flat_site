@@ -3,7 +3,7 @@ class ShoppingItem < ActiveRecord::Base
 	serialize :payees
 
 	validates_numericality_of :price
-  	validates :memo, presence: true
+  validates :memo, presence: true
 
   	def checked(id)
   		if payees
