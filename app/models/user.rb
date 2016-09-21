@@ -4,22 +4,22 @@ class User < ActiveRecord::Base
   attr_accessor :login
 
   validates :username,
-  :uniqueness => {
-    :case_sensitive => false
-  }
+            :uniqueness => {
+                :case_sensitive => false
+            }
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
 
   def self.find_for_database_authentication(warden_conditions)
-      conditions = warden_conditions.dup
-      if login = conditions.delete(:login)
-        where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]).first
-      else
-        where(conditions).first
-      end
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions).where(["lower(username) = :value OR lower(email) = :value", {:value => login.downcase}]).first
+    else
+      where(conditions).first
     end
+  end
 
   # Calculates who owes who.
   def self.calculate_total_two_users(first_username, second_username)
@@ -53,13 +53,13 @@ class User < ActiveRecord::Base
   def self.td_cell_colour_class(val)
     colour = 'success'
 
-    if val < 0.0 
+    if val < 0.0
       colour = 'danger'
     end
     return colour
   end
 
   def self.other_users(user)
-    return @other_users = User.all.reject {|x| x.username == user.username}
+    return @other_users = User.all.reject { |x| x.username == user.username }
   end
 end

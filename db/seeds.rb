@@ -21,55 +21,55 @@ require 'csv'
 user = ''
 pay_hash = {"Stuart" => -1, "Katy" => -1, "Simon" => -1, "Kieran" => -1}
 
-i = -1 
+i = -1
 CSV.foreach('db/seed_data.csv', {}) do |row|
   i += 1
   # Skips top of csv file.
   if i < 7
-  	next
+    next
   end
 
   # Skip blanks.
-  if row[0].nil? 
-  	next
+  if row[0].nil?
+    next
   end
 
   # Assigns new user.
   if row[0].to_s.include?('Payments to')
-  	user_name = row[0].to_s.split.last 
-  	user = User.find_by_username(user_name)
-  	# Skip to next line.
- 	next
+    user_name = row[0].to_s.split.last
+    user = User.find_by_username(user_name)
+    # Skip to next line.
+    next
   end
 
   # Sets row variables for current user.
   if row[0].to_s.include?('Date')
-  	# Reset variables.
-  	pay_hash.each do |k, v|
-  	  pay_hash[k] = -1
-  	end
-	# Iterate row with names.
-  	row[2..4].each_with_index do |l, i|
-  	  # Set which rows belong to which users.
-  	  # Index i needs to start at 2, and not 0.
-  	  case l 
-  	  when 'SB'
-  	  	pay_hash["Stuart"] = i + 2
-  	  when 'SC'
-  	  	pay_hash["Simon"] = i + 2
-  	  when 'KS'
-  	  	pay_hash["Katy"] = i + 2
-  	  when 'KN'
-  	  	pay_hash["Kieran"] = i + 2
-  	  end	
-  	end
-  	# Skip to next line. 
-  	next
+    # Reset variables.
+    pay_hash.each do |k, v|
+      pay_hash[k] = -1
+    end
+    # Iterate row with names.
+    row[2..4].each_with_index do |l, i|
+      # Set which rows belong to which users.
+      # Index i needs to start at 2, and not 0.
+      case l
+        when 'SB'
+          pay_hash["Stuart"] = i + 2
+        when 'SC'
+          pay_hash["Simon"] = i + 2
+        when 'KS'
+          pay_hash["Katy"] = i + 2
+        when 'KN'
+          pay_hash["Kieran"] = i + 2
+      end
+    end
+    # Skip to next line.
+    next
   end
 
   # Skip totals lines.
   if row[0].to_s.include?('TOTALS')
-  	next
+    next
   end
 
   # Payment Line.
@@ -84,22 +84,22 @@ CSV.foreach('db/seed_data.csv', {}) do |row|
 
   # Sort pay.
   pay_hash.each do |k, v|
-  	# Ignore user.
-  	if k == user
-  	  next 
-  	else 
-  	  # Extract payments.
-  	  case k 
-  	  when "Stuart"
-  	  	paysb = row[pay_hash[k]].to_f
-  	  when "Simon"
-  	  	paysc = row[pay_hash[k]].to_f
-  	  when "Katy"
-  	  	payks = row[pay_hash[k]].to_f
-  	  when "Kieran"
-  	  	paykn = row[pay_hash[k]].to_f
-  	  end
-  	end
+    # Ignore user.
+    if k == user
+      next
+    else
+      # Extract payments.
+      case k
+        when "Stuart"
+          paysb = row[pay_hash[k]].to_f
+        when "Simon"
+          paysc = row[pay_hash[k]].to_f
+        when "Katy"
+          payks = row[pay_hash[k]].to_f
+        when "Kieran"
+          paykn = row[pay_hash[k]].to_f
+      end
+    end
   end
   Payment.create! :user_id => user.id, :date => date, :memo => memo, :paysb => paysb, :paysc => paysc, :payks => payks, :paykn => paykn
 end

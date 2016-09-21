@@ -16,10 +16,10 @@ class PaymentsController < ApplicationController
       end
       # Add user totals.
       val_array = user_payment_hash.values
-      user_payment_hash['Total'] = val_array.inject{|sum,x| sum + x }
+      user_payment_hash['Total'] = val_array.inject { |sum, x| sum + x }
       # Add hash to main hash
       @user_payments[u.username] = user_payment_hash
-    end 
+    end
 
     respond_with(@payments)
   end
@@ -78,29 +78,29 @@ class PaymentsController < ApplicationController
   end
 
   private
-    def set_payment
-      @payment = Payment.find(params[:id])
-    end
+  def set_payment
+    @payment = Payment.find(params[:id])
+  end
 
-    def payment_push(type)
-      if current_user.push_key
-	      Pushbullet.set_access_token(current_user.push_key)
-	      User.other_users(current_user).each do |u|
-	        if u.push_key == nil
-	          next
-	        end
-	        if @payment["pay#{u.initials}"] > 0.0
-	          if type == "create"
-	            Pushbullet::V2::Push.note('A new payment has been created', "You owe: " + '%.2f' % @payment["pay#{u.initials}"] + ", to: " + current_user.username + ", for: " + @payment.memo,{'email' => u.email})
-	          else 
-	            Pushbullet::V2::Push.note('A payment has been updated', "You owe: " + '%.2f' % @payment["pay#{u.initials}"] + ", to: " + current_user.username + ", for: " + @payment.memo + " - " + @payment.date.to_s ,{'email' => u.email})
-	          end
-	        end
-	      end
-	    end
+  def payment_push(type)
+    if current_user.push_key
+      Pushbullet.set_access_token(current_user.push_key)
+      User.other_users(current_user).each do |u|
+        if u.push_key == nil
+          next
+        end
+        if @payment["pay#{u.initials}"] > 0.0
+          if type == "create"
+            Pushbullet::V2::Push.note('A new payment has been created', "You owe: " + '%.2f' % @payment["pay#{u.initials}"] + ", to: " + current_user.username + ", for: " + @payment.memo, {'email' => u.email})
+          else
+            Pushbullet::V2::Push.note('A payment has been updated', "You owe: " + '%.2f' % @payment["pay#{u.initials}"] + ", to: " + current_user.username + ", for: " + @payment.memo + " - " + @payment.date.to_s, {'email' => u.email})
+          end
+        end
+      end
     end
+  end
 
-    def payment_params
-      params.require(:payment).permit(:user_id, :date, :memo, :paysb, :payks, :paysc, :paykn)
-    end
+  def payment_params
+    params.require(:payment).permit(:user_id, :date, :memo, :paysb, :payks, :paysc, :paykn)
+  end
 end

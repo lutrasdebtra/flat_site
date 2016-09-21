@@ -3,11 +3,11 @@ Rails.application.routes.draw do
 
   resources :payments
 
-  devise_for :users, :skip => [:registrations]                                          
-    as :user do
-      get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'    
-      patch 'users/:id' => 'devise/registrations#update', :as => 'user_registration'            
-    end
+  devise_for :users, :skip => [:registrations]
+  as :user do
+    get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
+    patch 'users/:id' => 'devise/registrations#update', :as => 'user_registration'
+  end
   resources :users, only: [:show]
 
   root :controller => 'payments', :action => :index

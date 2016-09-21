@@ -66,59 +66,59 @@ class ShoppingListsController < ApplicationController
   end
 
   private
-    def set_amounts
-      total = 0.0
-      user_totals = Hash.new
-      User.all.each do |u|
-        user_totals[u.id.to_s] = 0.0
-      end 
-      @shopping_list.shopping_items.each do |i|
-      	if i.memo.blank? and i.price.blank?
-      	  next
-      	end
-        division = 0
-        i.payees.each do |p|
-          if user_totals[p.to_s]
-            division += 1
-          end
-        end 
-        i.payees.each do |p|
-          if user_totals[p.to_s]
-            user_totals[p.to_s] += i.price / division
-          end
-        end 
-        total += i.price
-      end
-      @shopping_list.total = total
-      user_totals.each do |k, i|
-        initials = User.where(:id => k).first.initials
-        @shopping_list["pay#{initials}"] = i
-      end
+  def set_amounts
+    total = 0.0
+    user_totals = Hash.new
+    User.all.each do |u|
+      user_totals[u.id.to_s] = 0.0
     end
-
-    def set_shopping_list
-      @shopping_list = ShoppingList.find(params[:id])
+    @shopping_list.shopping_items.each do |i|
+      if i.memo.blank? and i.price.blank?
+        next
+      end
+      division = 0
+      i.payees.each do |p|
+        if user_totals[p.to_s]
+          division += 1
+        end
+      end
+      i.payees.each do |p|
+        if user_totals[p.to_s]
+          user_totals[p.to_s] += i.price / division
+        end
+      end
+      total += i.price
     end
+    @shopping_list.total = total
+    user_totals.each do |k, i|
+      initials = User.where(:id => k).first.initials
+      @shopping_list["pay#{initials}"] = i
+    end
+  end
 
-    def shopping_list_push(type)
-      if current_user.push_key
-        Pushbullet.set_access_token(current_user.push_key)
-        User.other_users(current_user).each do |u|
-          if u.push_key == nil
-            next
-          end
-          if @shopping_list["pay#{u.initials}"] > 0.0
-            if type == "create"
-              Pushbullet::V2::Push.note('A new shopping list has been created', "You owe: " + '%.2f' % @shopping_list["pay#{u.initials}"] + ", to: " + current_user.username + ", for: " + @shopping_list.name,{'email' => u.email})
-            else 
-              Pushbullet::V2::Push.note('A shopping list has been updated', "You owe: " + '%.2f' % @shopping_list["pay#{u.initials}"] + ", to: " + current_user.username + ", for: " + @shopping_list.name + " - " + @shopping_list.date.to_s ,{'email' => u.email})
-            end
+  def set_shopping_list
+    @shopping_list = ShoppingList.find(params[:id])
+  end
+
+  def shopping_list_push(type)
+    if current_user.push_key
+      Pushbullet.set_access_token(current_user.push_key)
+      User.other_users(current_user).each do |u|
+        if u.push_key == nil
+          next
+        end
+        if @shopping_list["pay#{u.initials}"] > 0.0
+          if type == "create"
+            Pushbullet::V2::Push.note('A new shopping list has been created', "You owe: " + '%.2f' % @shopping_list["pay#{u.initials}"] + ", to: " + current_user.username + ", for: " + @shopping_list.name, {'email' => u.email})
+          else
+            Pushbullet::V2::Push.note('A shopping list has been updated', "You owe: " + '%.2f' % @shopping_list["pay#{u.initials}"] + ", to: " + current_user.username + ", for: " + @shopping_list.name + " - " + @shopping_list.date.to_s, {'email' => u.email})
           end
         end
       end
     end
+  end
 
-    def shopping_list_params
-      params.require(:shopping_list).permit(:_destroy, :id, :name, :date, :user_id, shopping_items_attributes: [:_destroy, :id, :memo, :price, :date, :shopping_list_id, :payees => []])
-    end
+  def shopping_list_params
+    params.require(:shopping_list).permit(:_destroy, :id, :name, :date, :user_id, shopping_items_attributes: [:_destroy, :id, :memo, :price, :date, :shopping_list_id, :payees => []])
+  end
 end

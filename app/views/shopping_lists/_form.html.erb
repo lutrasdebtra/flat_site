@@ -1,79 +1,80 @@
 <%= nested_form_for(@shopping_list) do |f| %>
-  <% if @shopping_list.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@shopping_list.errors.count, "error") %> prohibited this shopping_list from being saved:</h2>
+    <% if @shopping_list.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@shopping_list.errors.count, "error") %> prohibited this shopping_list from being
+            saved:</h2>
 
-      <ul>
-      <% @shopping_list.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="row">
-    <div class="form-group col-md-4">
-      <%= f.label :name %>
-      <%= f.text_field :name, class: "form-control", type: 'text' %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="form-group col-md-2">
-      <%= f.label :date %>
-      <%= f.text_field :date, class: "form-control datepicker", type: 'text' %>
-    </div>
-  </div>
-
-  <table class="table table-bordered" id="form_table">
-    <thead>
-          <tr class="active">
-            <th>Memo</th>
-            <th>Price</th>
-            <th style="text-align:center;vertical-align:middle;"><%= current_user.username %></th>
-            <% User.other_users(current_user).each do |u| %>
-              <th style="text-align:center;vertical-align:middle;"><%= u.username %></th>
+          <ul>
+            <% @shopping_list.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
             <% end %>
-            <th></th>
-          </tr>
-    </thead>
-    <tbody id="form_body">
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="row">
+      <div class="form-group col-md-4">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: "form-control", type: 'text' %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-2">
+        <%= f.label :date %>
+        <%= f.text_field :date, class: "form-control datepicker", type: 'text' %>
+      </div>
+    </div>
+
+    <table class="table table-bordered" id="form_table">
+      <thead>
+      <tr class="active">
+        <th>Memo</th>
+        <th>Price</th>
+        <th style="text-align:center;vertical-align:middle;"><%= current_user.username %></th>
+        <% User.other_users(current_user).each do |u| %>
+            <th style="text-align:center;vertical-align:middle;"><%= u.username %></th>
+        <% end %>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody id="form_body">
       <%= f.fields_for :shopping_items, :wrapper => false do |k| %>
-        <tr class="fields">
-          <td><%= k.text_field :memo, class: "form-control", type: 'text' %></td>
-          <td><%= k.number_field :price, :step => 'any', class: "form-control", type: 'number', :onchange => 'change_total();' %></td>
-          <td style="text-align:center;vertical-align:middle;">
-            <%= k.check_box :payees, { :multiple => true, :checked => (k.object.checked(current_user.id.to_s)), :onclick =>"change_total();" }, current_user.id %>
-          </td>
-          <% User.other_users(current_user).each do |u| %>
+          <tr class="fields">
+            <td><%= k.text_field :memo, class: "form-control", type: 'text' %></td>
+            <td><%= k.number_field :price, :step => 'any', class: "form-control", type: 'number', :onchange => 'change_total();' %></td>
             <td style="text-align:center;vertical-align:middle;">
-              <%= k.check_box :payees, { :multiple => true, :checked => (k.object.checked(u.id.to_s)), :onclick =>"change_total();" }, u.id %>
+              <%= k.check_box :payees, {:multiple => true, :checked => (k.object.checked(current_user.id.to_s)), :onclick => "change_total();"}, current_user.id %>
             </td>
-          <% end %>
-          <td><%= k.link_to_remove "Remove", class: "btn btn-danger btn-block" %></td>
-        </tr>
+            <% User.other_users(current_user).each do |u| %>
+                <td style="text-align:center;vertical-align:middle;">
+                  <%= k.check_box :payees, {:multiple => true, :checked => (k.object.checked(u.id.to_s)), :onclick => "change_total();"}, u.id %>
+                </td>
+            <% end %>
+            <td><%= k.link_to_remove "Remove", class: "btn btn-danger btn-block" %></td>
+          </tr>
       <% end %>
 
-    </tbody>
-    <tbody>
+      </tbody>
+      <tbody>
       <tr style="font-weight: bold;" class="active">
         <td>Totals:</td>
         <td style="text-align:right;vertical-align:middle;" id="total"><%= @shopping_list.total %></td>
-        <td style="text-align:center;vertical-align:middle;" id="user_total_<%=current_user.id%>"><%= eval("@shopping_list.pay#{current_user.initials}") %></td>
+        <td style="text-align:center;vertical-align:middle;" id="user_total_<%= current_user.id %>"><%= eval("@shopping_list.pay#{current_user.initials}") %></td>
         <% User.other_users(current_user).each do |u| %>
-          <td style="text-align:center;vertical-align:middle;" id="user_total_<%=u.id%>"><%= eval("@shopping_list.pay#{u.initials}") %></td>
+            <td style="text-align:center;vertical-align:middle;" id="user_total_<%= u.id %>"><%= eval("@shopping_list.pay#{u.initials}") %></td>
         <% end %>
       </tr>
-    </tbody>
+      </tbody>
 
-  </table>
-  <div style="text-align: center;">
-  <%= f.link_to_add "Add an Item", :shopping_items, :data => { :target => "#form_body" }, class: "btn btn-primary btn-block" %>
-  </div>
+    </table>
+    <div style="text-align: center;">
+      <%= f.link_to_add "Add an Item", :shopping_items, :data => {:target => "#form_body"}, class: "btn btn-primary btn-block" %>
+    </div>
 
-  <hr></hr>
+    <hr>
 
-  <div class="btn-group" role="group" aria-label="...">
-    <%= f.submit "Submit", class: "btn btn-success btn-lg" %>
-    <%= link_to 'Cancel', :back, class: "btn btn-warning btn-lg" %>
-  </div>
+    <div class="btn-group" role="group" aria-label="...">
+      <%= f.submit "Submit", class: "btn btn-success btn-lg" %>
+      <%= link_to 'Cancel', :back, class: "btn btn-warning btn-lg" %>
+    </div>
 <% end %>

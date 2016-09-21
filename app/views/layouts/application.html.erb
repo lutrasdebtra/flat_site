@@ -2,13 +2,13 @@
 <html>
 <p class="navbar-text pull-right">
   <% if user_signed_in? %>
-    Logged in as <strong><%= link_to "#{current_user.username}", edit_user_registration_path %></strong>.
-    <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+      Logged in as <strong><%= link_to "#{current_user.username}", edit_user_registration_path %></strong>.
+      <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link' %>
   <% end %>
 </p>
 <head>
   <title>Pinehill</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,13 +16,13 @@
 <body>
 
 <% if alert %>
-  <p class="alert alert-error"><%= alert %></p>
+    <p class="alert alert-error"><%= alert %></p>
 <% end %>
 
-<br />
-<br />
+<br/>
+<br/>
 <div class="container">
-	<%= yield %>
+  <%= yield %>
 </div>
 
 </body>

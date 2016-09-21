@@ -18,7 +18,7 @@ class PaymentsControllerTest < ActionController::TestCase
 
   test "should create payment" do
     assert_difference('Payment.count') do
-      post :create, payment: { date: @payment.date, memo: @payment.memo, paykn: @payment.paykn, payks: @payment.payks, paysb: @payment.paysb, paysc: @payment.paysc }
+      post :create, payment: {date: @payment.date, memo: @payment.memo, paykn: @payment.paykn, payks: @payment.payks, paysb: @payment.paysb, paysc: @payment.paysc}
     end
 
     assert_redirected_to payment_path(assigns(:payment))
@@ -35,7 +35,7 @@ class PaymentsControllerTest < ActionController::TestCase
   end
 
   test "should update payment" do
-    patch :update, id: @payment, payment: { date: @payment.date, memo: @payment.memo, paykn: @payment.paykn, payks: @payment.payks, paysb: @payment.paysb, paysc: @payment.paysc }
+    patch :update, id: @payment, payment: {date: @payment.date, memo: @payment.memo, paykn: @payment.paykn, payks: @payment.payks, paysb: @payment.paysb, paysc: @payment.paysc}
     assert_redirected_to payment_path(assigns(:payment))
   end
 

@@ -18,7 +18,7 @@ class ShoppingListsControllerTest < ActionController::TestCase
 
   test "should create shopping_list" do
     assert_difference('ShoppingList.count') do
-      post :create, shopping_list: { date: @shopping_list.date, name: @shopping_list.name, user_id: @shopping_list.user_id }
+      post :create, shopping_list: {date: @shopping_list.date, name: @shopping_list.name, user_id: @shopping_list.user_id}
     end
 
     assert_redirected_to shopping_list_path(assigns(:shopping_list))
@@ -35,7 +35,7 @@ class ShoppingListsControllerTest < ActionController::TestCase
   end
 
   test "should update shopping_list" do
-    patch :update, id: @shopping_list, shopping_list: { date: @shopping_list.date, name: @shopping_list.name, user_id: @shopping_list.user_id }
+    patch :update, id: @shopping_list, shopping_list: {date: @shopping_list.date, name: @shopping_list.name, user_id: @shopping_list.user_id}
     assert_redirected_to shopping_list_path(assigns(:shopping_list))
   end
 

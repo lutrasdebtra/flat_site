@@ -1,40 +1,40 @@
 <%= form_for(@payment) do |f| %>
-  <form>
-    <% if @payment.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@payment.errors.count, "error") %> prohibited this payment from being saved:</h2>
+    <form>
+      <% if @payment.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@payment.errors.count, "error") %> prohibited this payment from being saved:</h2>
 
-        <ul>
-        <% @payment.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
+            <ul>
+              <% @payment.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
 
-    <table class="table table-bordered table-striped" id="form_table">
-      <thead>
+      <table class="table table-bordered table-striped" id="form_table">
+        <thead>
         <tr>
           <th><%= f.label :date %></th>
           <th><%= f.label :memo %></th>
           <% User.other_users(current_user).each do |u| %>
-            <th><%= f.label eval(":pay#{u.initials}"), "#{u.username}" %></th>
+              <th><%= f.label eval(":pay#{u.initials}"), "#{u.username}" %></th>
           <% end %>
         </tr>
-      </thead>
-      <tbody>
-          <tr>
-            <td><%= f.text_field :date, class: "form-control datepicker", type: 'text'  %></td>
-            <td><%= f.text_field :memo, class: "form-control", type: 'text' %></td>
-            <% User.other_users(current_user).each do |u| %>
+        </thead>
+        <tbody>
+        <tr>
+          <td><%= f.text_field :date, class: "form-control datepicker", type: 'text' %></td>
+          <td><%= f.text_field :memo, class: "form-control", type: 'text' %></td>
+          <% User.other_users(current_user).each do |u| %>
               <td><%= f.number_field eval(":pay#{u.initials}"), :step => 'any', class: "form-control", type: 'number' %></td>
-            <% end %>
-          </tr>
-      </tbody>
-    </table>
-    <div class="btn-group" role="group" aria-label="...">
-      <%= f.submit "Submit", class: "btn btn-success btn-lg" %>
-      <%= link_to 'Cancel', :back, class: "btn btn-warning btn-lg" %>
-    </div>
-  </form>
+          <% end %>
+        </tr>
+        </tbody>
+      </table>
+      <div class="btn-group" role="group" aria-label="...">
+        <%= f.submit "Submit", class: "btn btn-success btn-lg" %>
+        <%= link_to 'Cancel', :back, class: "btn btn-warning btn-lg" %>
+      </div>
+    </form>
 <% end %>
