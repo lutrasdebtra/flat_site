@@ -19,13 +19,6 @@
 
 $(document).ready(function () {
     $('#user_payment_table').DataTable({
-        "columnDefs": [
-            {"width": "9%", "targets": 0},
-            {"width": "7%", "targets": 2},
-            {"width": "7%", "targets": 3},
-            {"width": "7%", "targets": 4},
-            {"width": "13%", "targets": 5},
-        ],
         "order": [[0, "desc"]]
     });
 });
