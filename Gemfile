@@ -2,9 +2,9 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.0'
+gem 'rails', '5.1'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3', '1.3.11'
+gem 'sqlite3'
 # Use SCSS for stylesheets
 gem 'bootstrap-sass'
 gem 'sass-rails'
@@ -32,12 +32,13 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+gem 'web-console', '~> 2.0', group: :development
 
 gem 'devise'
 gem 'bootstrap-datepicker-rails'
 gem 'validates_timeliness'
 gem "nested_form"
 gem 'pushbullet-ruby'
-gem 'nokogiri', '1.6.8'
+gem 'nokogiri'
 gem 'tzinfo-data'
-gem 'coffee-script-source', '1.8.0'
+gem 'coffee-script-source'
