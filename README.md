@@ -41,11 +41,30 @@ When a payment or a receipt is created, website checks whether a user has a `pus
 
 ### Getting Started
 
-Once the site has been pulled from Github, the first thing to alter is the `/db/seeds.rb` file. When initially creating the site, the seeds file was used to import a Google Drive dump - and importing the (now dated) data is probably not desired. 
+Once the site has been pulled from Github and `db:create:all` has been run, the only thing left to do is add users. 
+Addition and removal of users is done via `user_changes` rake tasks. The reason users are not seeded directly into the 
+database, is that there is some underlying column changes that occur when a user is added or removed to increase the speed
+of the site.
 
-In addition to this, it is ideal to seed your own users. In addition to defining them in the seed file, `/db/schema.rb` must be updated. Users have initials, these initials are used in the `payment` and `shopping_list` databases to tie individual users to payments. For instance Stuart Bradley (myself) has the initials `sb`, and as such is related to the `paysb` fields in the databases.
+#### Addition of a User
 
-From here, `rake:schema:load` should be all that is required to get the site running. 
+```
+rails user_changes:add_user username=string email=string password=string initials=string
+# Example:
+rails user_changes:add_user username=John email=John@gmail.com password=johniscool47 initials=js
+```
+
+`username`, `email`, and `initials` should all be unique. `initials` is essentially an alphabetic ID field, 
+and is only used internally. (Also it's not really required I should have just used `user.id`, but stuff like this 
+happens when the bulk of the code is written in a weekend.)
+
+#### Removal of a User
+
+```
+rails user_changes:remove_user username=string
+# Example:
+rails user_changes:remove_user username=John
+```
 
 ### Gems
 
@@ -54,6 +73,16 @@ The interface was designed using [bootstrap](https://github.com/twbs/bootstrap-s
 The forms use [nested_form](https://github.com/ryanb/nested_form). This has produced a bug where the add item button for receipts fired twice, but it is annoying enough to port the code. 
 
 Other gems include one to [validate times](https://github.com/adzap/validates_timeliness), as well as a wrapper for the [pushbullet API](https://github.com/meinside/pushbullet-ruby).
+
+## TODO
+
+1. Move away from individual user columns on `Payments` and `ShoppingLists`. These could easily be replaced by 
+serialized arrays or a [polymorphic join table](https://stackoverflow.com/a/45390372/1695437). However, would have to be
+combined with 2.
+2. Don't calculate totals on the fly. Totals should be continuously updated on users as they create payments. This would avoid
+the slowdown created by 1. Payment edits would have to make use of `_was` suffix in a `before_update` method. 
+3. Add emailer and email interaction to increase usability. E.g. monthly summaries, notifications, the ability to email payments to the system 
+(which would avoid the need for being outside a LAN). 
 
 ## License 
 
