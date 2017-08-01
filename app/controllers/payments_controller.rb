@@ -101,6 +101,6 @@ class PaymentsController < ApplicationController
   end
 
   def payment_params
-    params.require(:payment).permit(:user_id, :date, :memo, :paysb, :payks, :paysc, :paykn)
+    params.require(:payment).permit!
   end
 end

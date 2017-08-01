@@ -119,6 +119,6 @@ class ShoppingListsController < ApplicationController
   end
 
   def shopping_list_params
-    params.require(:shopping_list).permit(:_destroy, :id, :name, :date, :user_id, shopping_items_attributes: [:_destroy, :id, :memo, :price, :date, :shopping_list_id, :payees => []])
+    params.require(:shopping_list).permit!
   end
 end
