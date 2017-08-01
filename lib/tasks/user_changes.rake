@@ -22,6 +22,16 @@ namespace :user_changes do
       end
 
       Rake::Task['db:migrate'].invoke
+
+      user_initial_var = eval(":pay#{initials}")
+
+      # Fakes adding a default value to the column (all entries after this will have 0.0 anyway).
+      Payment.all.each do |p|
+        p.update_column user_initial_var, 0.0
+      end
+      ShoppingList.all.each do |p|
+        p.update_column user_initial_var, 0.0
+      end
     end
   end
 

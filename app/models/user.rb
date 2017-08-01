@@ -30,33 +30,21 @@ class User < ActiveRecord::Base
     first_user_total = 0.0
 
     first_user.payments.each do |p|
-      val = eval("p.pay#{second_user.initials}")
-      if val
-        first_user_total += val
-      end
+      first_user_total += eval("p.pay#{second_user.initials}")
     end
 
     first_user.shopping_lists.each do |p|
-      val = eval("p.pay#{second_user.initials}")
-      if val
-        first_user_total += val
-      end
+      first_user_total += eval("p.pay#{second_user.initials}")
     end
 
     second_user_total = 0.0
 
     second_user.payments.each do |p|
-      val = eval("p.pay#{first_user.initials}")
-      if val
-        second_user_total += val
-      end
+      second_user_total += eval("p.pay#{first_user.initials}")
     end
 
     second_user.shopping_lists.each do |p|
-      val = eval("p.pay#{first_user.initials}")
-      if val
-        second_user_total += val
-      end
+      second_user_total += eval("p.pay#{first_user.initials}")
     end
 
     return first_user_total - second_user_total
